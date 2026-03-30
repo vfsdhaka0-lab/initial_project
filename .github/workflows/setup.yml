@@ -1,5 +1,4 @@
 name: Auto-Initialize Android Flutter Project
-
 on:
   push:
     branches:
