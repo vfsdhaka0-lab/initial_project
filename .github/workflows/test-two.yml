@@ -1,4 +1,4 @@
-name: Test Build
+name: Test Two
 
 on:
   workflow_dispatch:
@@ -6,10 +6,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout code
       - uses: actions/checkout@v3
+
+      # Setup Flutter
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
+
+      # Get dependencies
       - run: flutter pub get
+
+      # Just print a message
       - run: echo "Test successful!"
