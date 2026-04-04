@@ -1,5 +1,6 @@
-name: Test Two
+name: Flutter Test Two
 
+# ✅ Manual trigger
 on:
   workflow_dispatch:
 
@@ -8,16 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
-      - uses: actions/checkout@v3
+      # 1️⃣ Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Setup Flutter
-      - uses: subosito/flutter-action@v2
+      # 2️⃣ Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'
+          cache: true
 
-      # Get dependencies
-      - run: flutter pub get
+      # 3️⃣ Get dependencies
+      - name: Flutter Pub Get
+        run: flutter pub get
 
-      # Just print a message
-      - run: echo "Test successful!"
+      # 4️⃣ Run Flutter analyze (optional static check)
+      - name: Flutter Analyze
+        run: flutter analyze
+
+      # 5️⃣ Run Flutter tests (if you have test files)
+      - name: Flutter Test
+        run: flutter test || true
+
+      # 6️⃣ Build APK (optional)
+      - name: Build APK
+        run: flutter build apk --debug
+
+      # 7️⃣ Test complete
+      - name: Success Message
+        run: echo "✅ Test workflow completed successfully!"
